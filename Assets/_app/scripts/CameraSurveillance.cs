@@ -6,7 +6,7 @@ public class CameraSurveillance : MonoBehaviour {
 
     public Camera[] cameras; // arrary of cameras to switch between
     public KeyCode prevKey = KeyCode.Q; // filter back to previous cam
-    public KeyCode nexkKey = KeyCode.E; // filter forward to next cam
+    public KeyCode nextKey = KeyCode.E; // filter forward to next cam
     private int camIndex;               //current cam index from array
     private int camMax;                 //max amount of cams in array
     private Camera current; // the current camera selected
@@ -29,7 +29,7 @@ public class CameraSurveillance : MonoBehaviour {
         for (int i = 0; i < cameras.Length; i++)
         {
             Camera cam = cameras[i];
-            //if the current index matches the argunebt camIndex
+            //if the current index matches the argument camIndex
             if(i == camIndex)
             {
                 //enable this camera
@@ -44,6 +44,27 @@ public class CameraSurveillance : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        // if the next key is pressed
+        if (Input.GetKeyDown(nextKey))
+        {
+            //increase index
+            camIndex++;
+            if(camIndex >= camMax)
+            {
+                camIndex = 0;
+            }
+            ActivateCamera(camIndex);
+        }
+        // if the previous key is pressed
+        if (Input.GetKeyDown(prevKey))
+        {
+            //decrease index
+            camIndex--;
+            if (camIndex < 0)
+            {
+                camIndex = camMax;
+            }
+            ActivateCamera(camIndex);
+        }
+    }
 }
